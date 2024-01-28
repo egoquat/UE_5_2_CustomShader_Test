@@ -1,0 +1,14 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "g:\\programming\\ue\\test\\ue5_vehicle_test\\plugins\\customshader\\source\\customshader\\private\\customshader.cpp",
+        "ProvidedModule": "",
+        "PCH": "g:\\programming\\ue\\repo\\unrealengine\\engine\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\engine\\sharedpch.engine.shadowerrors.inclorderunreal5_1.h.pch",
+        "Includes": [
+            "g:\\programming\\ue\\test\\ue5_vehicle_test\\plugins\\customshader\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\customshader\\definitions.customshader.h",
+            "g:\\programming\\ue\\test\\ue5_vehicle_test\\plugins\\customshader\\source\\customshader\\public\\customshader.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

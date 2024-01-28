@@ -1,0 +1,105 @@
+﻿
+#pragma once
+
+#define RT_PAYLOAD_TYPE_VFX 1
+
+#include "/Engine/Private/Common.ush"
+#include "/Engine/Private/RayTracing/RayTracingCommon.ush"
+#include "/Engine/Private/RayTracing/RayTracingHitGroupCommon.ush"
+ 
+RWTexture2D<float4> outTex;
+RaytracingAccelerationStructure TLAS;
+
+struct FCusotmRayPayload : FIntersectionPayload
+{
+    float3 TranslatedWorldPosition;
+    float3 WorldNormal;
+    void SetPosition(float3 position)
+    {
+        TranslatedWorldPosition = position;
+    }
+};
+
+float3 RotateVectorY(float3 dir, float angle) {
+    // Convert the angle from degrees to radians
+    angle = radians(angle);
+
+    // Calculate the sine and cosine of the angle
+    float sinAngle = sin(angle);
+    float cosAngle = cos(angle);
+
+    // Create the rotation matrix around the Y-axis
+    float3x3 rotationMatrix = float3x3(
+        cosAngle, sinAngle, 0,
+        -sinAngle, cosAngle, 0, 
+        0, 0, 1
+    );
+
+    // Rotate the vector using the rotation matrix
+    return mul(rotationMatrix, dir);
+}
+
+
+RAY_TRACING_ENTRY_RAYGEN(RayTraceTestRGS)
+{
+    // reconstruct camera direction with a small (far) device z
+    uint2 PixelCoord = DispatchRaysIndex().xy + View.ViewRectMin.xy;
+    float3 WorldPosition;
+    float3 CameraDirection;
+    ReconstructTranslatedWorldPositionAndCameraDirectionFromDeviceZ(PixelCoord, 0.1f, WorldPosition, CameraDirection);
+ 
+    // setup ray, simply shoot a long distance
+    RayDesc Ray;
+    Ray.Origin = WorldPosition;
+    Ray.Direction = RotateVectorY(CameraDirection, 180.0f);
+    //Ray.Direction = CameraDirection;
+    Ray.TMin = 0.0f;
+    Ray.TMax = 10000.0f;
+ 
+    // consider opaque geometries and front facing triangles only
+    uint RayFlags = RAY_FLAG_FORCE_OPAQUE | RAY_FLAG_CULL_BACK_FACING_TRIANGLES;
+    //uint RayFlags = 0;
+    //uint RayFlags = RAY_FLAG_ACCEPT_FIRST_HIT_AND_END_SEARCH;
+ 
+    // use material closest hit pay load
+    //FIntersectionPayload Payload = (FIntersectionPayload) 0;
+    FVFXTracePayload Payload = (FVFXTracePayload) 0;
+    //FCusotmRayPayload Payload = (FCusotmRayPayload) 0;
+	
+    TraceRay(
+        TLAS,   // AccelerationStructure
+        RayFlags,
+        RAY_TRACING_MASK_OPAQUE,
+        RAY_TRACING_SHADER_SLOT_MATERIAL, // RayContributionToHitGroupIndex, defined by UE4
+        RAY_TRACING_NUM_SHADER_SLOTS,     // MultiplierForGeometryContributionToShaderIndex, defined by UE4
+        0,      // MissShaderIndex
+        Ray,    // RayDesc
+        Payload // Payload
+    );
+ 
+    if (Payload.IsHit() && Payload.HitT <= 10000.0f)
+    {
+        //outTex[PixelCoord] = float4(Payload.TranslatedWorldPosition,1);
+        float rt = clamp(Payload.HitT/10000.0f, 0, 1);
+        float ch = 1.0f/3.0f;
+        float r=saturate(rt*3),g=saturate((rt-ch)*3),b=saturate((rt-(ch*2))*3);
+        outTex[PixelCoord] = float4(r,g,b,1);
+    }
+    else
+    {
+        outTex[PixelCoord] = float4(0,0,0,1);
+    }
+}
+
+RAY_TRACING_ENTRY_CLOSEST_HIT(RayTraceTestCHS, FVFXTracePayload, payload, BuiltInTriangleIntersectionAttributes, attribs)
+{
+    //float3 wPos = TranslatedWorldRayOrigin() + WorldRayDirection() * RayTCurrent();
+    //payload.TranslatedWorldPosition = TranslatedWorldRayOrigin() + WorldRayDirection() * RayTCurrent();
+    payload.HitT = RayTCurrent();
+    //payload.HitT = RayTCurrent();
+}
+
+RAY_TRACING_ENTRY_MISS(RayTraceTestMS, FVFXTracePayload, payload)
+{
+    payload.SetMiss();
+}
