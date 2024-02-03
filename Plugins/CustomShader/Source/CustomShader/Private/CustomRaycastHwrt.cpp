@@ -28,7 +28,7 @@ class FCustomRaycastRHIRGS : public FGlobalShader
 	SHADER_USE_ROOT_PARAMETER_STRUCT(FCustomRaycastRHIRGS, FGlobalShader)
 	
 	BEGIN_SHADER_PARAMETER_STRUCT(FParameters,)
-    
+		SHADER_PARAMETER(FIntPoint, ResTexture)
 		SHADER_PARAMETER_UAV(RWTexture2D<float4>, outTex)
 		SHADER_PARAMETER_SRV(RaytracingAccelerationStructure, TLAS)
 		SHADER_PARAMETER_STRUCT_REF(FViewUniformShaderParameters, ViewUniformBuffer)
@@ -178,16 +178,18 @@ void FCustomRaycastHwrt::Execute_RenderThread(FPostOpaqueRenderParameters& Param
     
 	//Render Thread Assertion
 	check(IsInRenderingThread());
- 
+
+	FIntPoint TextureSize = { CachedParams.RenderTarget->SizeX, CachedParams.RenderTarget->SizeY };
+	
 	// set shader parameters
 	FCustomRaycastRHIRGS::FParameters *PassParameters = GraphBuilder->AllocParameters<FCustomRaycastRHIRGS::FParameters>();
 	PassParameters->ViewUniformBuffer = Parameters.View->ViewUniformBuffer;
 	PassParameters->TLAS = CachedParams.Scene->GetLayerSRVChecked(ERayTracingSceneLayer::Base);
 	PassParameters->outTex = ShaderOutputTextureUAV;
+	PassParameters->ResTexture = TextureSize; 
  
 	// define render pass needed parameters
 	TShaderMapRef<FCustomRaycastRHIRGS> CustomRaycastRHIRGS(GetGlobalShaderMap(GMaxRHIFeatureLevel));
-	FIntPoint TextureSize = { CachedParams.RenderTarget->SizeX, CachedParams.RenderTarget->SizeY };
 	FRHIRayTracingScene* RHIScene = CachedParams.Scene->GetRHIRayTracingScene();
     //FRHIRayTracingScene* RHIScene = Parameters.View->GetRayTracingSceneChecked();
  

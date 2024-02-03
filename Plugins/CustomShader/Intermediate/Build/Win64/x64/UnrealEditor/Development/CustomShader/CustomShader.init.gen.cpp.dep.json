@@ -1,0 +1,13 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "g:\\programming\\ue\\repo\\ue_customshader_test\\plugins\\customshader\\intermediate\\build\\win64\\unrealeditor\\inc\\customshader\\uht\\customshader.init.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "g:\\programming\\ue\\repo\\unrealengine\\engine\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\engine\\sharedpch.engine.shadowerrors.inclorderunreal5_1.h.pch",
+        "Includes": [
+            "g:\\programming\\ue\\repo\\ue_customshader_test\\plugins\\customshader\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\customshader\\definitions.customshader.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

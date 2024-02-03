@@ -1,6 +1,6 @@
-G:\Programming\UE\Test\ue5_vehicle_test\Plugins\CustomShader\Intermediate\Build\Win64\x64\UnrealEditor\Development\CustomShader\Module.CustomShader.cpp
+G:\Programming\UE\Repo\UE_CustomShader_Test\Plugins\CustomShader\Intermediate\Build\Win64\x64\UnrealEditor\Development\CustomShader\Module.CustomShader.cpp
 /I .
-/I G:\Programming\UE\Test\ue5_vehicle_test\Plugins\CustomShader\Source\CustomShader\Private
+/I G:\Programming\UE\Repo\UE_CustomShader_Test\Plugins\CustomShader\Source\CustomShader\Private
 /I Developer\TargetPlatform\Public
 /I Developer
 /I ..\Intermediate\Build\Win64\UnrealEditor\Inc\DeveloperSettings\UHT
@@ -276,9 +276,9 @@ G:\Programming\UE\Test\ue5_vehicle_test\Plugins\CustomShader\Intermediate\Build\
 /I Developer\AnimationDataController\Public
 /I ..\Intermediate\Build\Win64\UnrealEditor\Inc\MaterialUtilities\UHT
 /I Developer\MaterialUtilities\Public
-/I G:\Programming\UE\Test\ue5_vehicle_test\Plugins\CustomShader\Intermediate\Build\Win64\UnrealEditor\Inc\CustomShader\UHT
-/I G:\Programming\UE\Test\ue5_vehicle_test\Plugins\CustomShader\Source
-/I G:\Programming\UE\Test\ue5_vehicle_test\Plugins\CustomShader\Source\CustomShader\Public
+/I G:\Programming\UE\Repo\UE_CustomShader_Test\Plugins\CustomShader\Intermediate\Build\Win64\UnrealEditor\Inc\CustomShader\UHT
+/I G:\Programming\UE\Repo\UE_CustomShader_Test\Plugins\CustomShader\Source
+/I G:\Programming\UE\Repo\UE_CustomShader_Test\Plugins\CustomShader\Source\CustomShader\Public
 /external:W0
 /external:I ThirdParty\mimalloc\include
 /external:I ThirdParty\LibTiff\Source\Win64
@@ -289,11 +289,11 @@ G:\Programming\UE\Test\ue5_vehicle_test\Plugins\CustomShader\Intermediate\Build\
 /external:I "C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um"
 /external:I "C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\winrt"
 /FI"..\Intermediate\Build\Win64\x64\UnrealEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.InclOrderUnreal5_1.h"
-/FI"G:\Programming\UE\Test\ue5_vehicle_test\Plugins\CustomShader\Intermediate\Build\Win64\x64\UnrealEditor\Development\CustomShader\Definitions.CustomShader.h"
+/FI"G:\Programming\UE\Repo\UE_CustomShader_Test\Plugins\CustomShader\Intermediate\Build\Win64\x64\UnrealEditor\Development\CustomShader\Definitions.CustomShader.h"
 /Yu"..\Intermediate\Build\Win64\x64\UnrealEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.InclOrderUnreal5_1.h"
 /Fp"..\Intermediate\Build\Win64\x64\UnrealEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.InclOrderUnreal5_1.h.pch"
-/Fo"G:\Programming\UE\Test\ue5_vehicle_test\Plugins\CustomShader\Intermediate\Build\Win64\x64\UnrealEditor\Development\CustomShader\Module.CustomShader.cpp.obj"
-/sourceDependencies G:\Programming\UE\Test\ue5_vehicle_test\Plugins\CustomShader\Intermediate\Build\Win64\x64\UnrealEditor\Development\CustomShader\Module.CustomShader.cpp.dep.json
+/Fo"G:\Programming\UE\Repo\UE_CustomShader_Test\Plugins\CustomShader\Intermediate\Build\Win64\x64\UnrealEditor\Development\CustomShader\Module.CustomShader.cpp.obj"
+/sourceDependencies G:\Programming\UE\Repo\UE_CustomShader_Test\Plugins\CustomShader\Intermediate\Build\Win64\x64\UnrealEditor\Development\CustomShader\Module.CustomShader.cpp.dep.json
 /Zc:inline
 /nologo
 /Oi

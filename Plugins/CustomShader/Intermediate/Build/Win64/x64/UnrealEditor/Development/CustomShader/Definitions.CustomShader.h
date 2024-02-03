@@ -69,8 +69,8 @@
 #define UE_DISABLE_INLINE_GEN_CPP 0
 #define UE_ENABLE_INCLUDE_ORDER_DEPRECATED_IN_5_1 0
 #define UE_ENABLE_INCLUDE_ORDER_DEPRECATED_IN_5_2 1
-#define UE_PROJECT_NAME ue5_customshader_test
-#define UE_TARGET_NAME ue5_vehicle_testEditor
+#define UE_PROJECT_NAME UE_CustomShader_Test
+#define UE_TARGET_NAME UE_CustomShader_TestEditor
 #define UE_MODULE_NAME "CustomShader"
 #define UE_PLUGIN_NAME "CustomShader"
 #define IMPLEMENT_ENCRYPTION_KEY_REGISTRATION() 

@@ -1,0 +1,35 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "g:\\programming\\ue\\repo\\ue_customshader_test\\plugins\\customshader\\intermediate\\build\\win64\\unrealeditor\\inc\\customshader\\uht\\customshaderrunner.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "g:\\programming\\ue\\repo\\unrealengine\\engine\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\engine\\sharedpch.engine.shadowerrors.inclorderunreal5_1.h.pch",
+        "Includes": [
+            "g:\\programming\\ue\\repo\\ue_customshader_test\\plugins\\customshader\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\customshader\\definitions.customshader.h",
+            "g:\\programming\\ue\\repo\\ue_customshader_test\\plugins\\customshader\\source\\customshader\\public\\customshaderrunner.h",
+            "g:\\programming\\ue\\repo\\ue_customshader_test\\plugins\\customshader\\source\\customshader\\public\\customraycasthwrt.h",
+            "g:\\programming\\ue\\repo\\unrealengine\\engine\\source\\runtime\\rendercore\\public\\rendergraphutils.h",
+            "g:\\programming\\ue\\repo\\unrealengine\\engine\\source\\runtime\\rendercore\\public\\rendergraphbuilder.h",
+            "g:\\programming\\ue\\repo\\unrealengine\\engine\\source\\runtime\\core\\public\\containers\\stridedview.h",
+            "g:\\programming\\ue\\repo\\unrealengine\\engine\\source\\runtime\\rendercore\\public\\rendergraphblackboard.h",
+            "g:\\programming\\ue\\repo\\unrealengine\\engine\\source\\runtime\\core\\public\\misc\\generatedtypename.h",
+            "g:\\programming\\ue\\repo\\unrealengine\\engine\\source\\runtime\\rendercore\\public\\rendergraphevent.h",
+            "g:\\programming\\ue\\repo\\unrealengine\\engine\\source\\runtime\\rendercore\\public\\rendergraphevent.inl",
+            "g:\\programming\\ue\\repo\\unrealengine\\engine\\source\\runtime\\rendercore\\public\\rendergraphpass.h",
+            "g:\\programming\\ue\\repo\\unrealengine\\engine\\source\\runtime\\rendercore\\public\\rendergraphparameters.inl",
+            "g:\\programming\\ue\\repo\\unrealengine\\engine\\source\\runtime\\rendercore\\public\\rendergraphtrace.h",
+            "g:\\programming\\ue\\repo\\unrealengine\\engine\\source\\runtime\\rendercore\\public\\rendergraphvalidation.h",
+            "g:\\programming\\ue\\repo\\unrealengine\\engine\\source\\runtime\\rendercore\\public\\rendergraphbuilder.inl",
+            "g:\\programming\\ue\\repo\\unrealengine\\engine\\source\\runtime\\rendercore\\public\\shaderparameterstruct.h",
+            "g:\\programming\\ue\\repo\\unrealengine\\engine\\source\\runtime\\engine\\classes\\engine\\texturerendertargetvolume.h",
+            "g:\\programming\\ue\\repo\\unrealengine\\engine\\source\\runtime\\engine\\classes\\engine\\texturerendertarget.h",
+            "g:\\programming\\ue\\repo\\unrealengine\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\texturerendertarget.generated.h",
+            "g:\\programming\\ue\\repo\\unrealengine\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\texturerendertargetvolume.generated.h",
+            "g:\\programming\\ue\\repo\\unrealengine\\engine\\source\\runtime\\engine\\classes\\engine\\texturerendertarget2d.h",
+            "g:\\programming\\ue\\repo\\unrealengine\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\texturerendertarget2d.generated.h",
+            "g:\\programming\\ue\\repo\\ue_customshader_test\\plugins\\customshader\\intermediate\\build\\win64\\unrealeditor\\inc\\customshader\\uht\\customshaderrunner.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

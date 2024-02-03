@@ -9,6 +9,7 @@
  
 RWTexture2D<float4> outTex;
 RaytracingAccelerationStructure TLAS;
+uint2 ResTexture;
 
 struct FCusotmRayPayload : FIntersectionPayload
 {
@@ -39,29 +40,41 @@ float3 RotateVectorY(float3 dir, float angle) {
     return mul(rotationMatrix, dir);
 }
 
+void ReconstructWorldPosition(uint2 PixelCoord, uint2 ResTex, float DeviceZ, out float3 OutTranslatedWorldPosition, out float3 OutCameraDirection)
+{
+    uint2 ResView = View.ViewSizeAndInvSize.xy;
+    float2 coord = PixelCoord;
+    coord.x = coord.x * ((float)ResView.x / (float)ResTex.x);
+    coord.y = coord.y * ((float)ResView.y / (float)ResTex.y);
+    float4 TranslatedWorldPosition = mul(float4(coord + 0.5, DeviceZ, 1), View.SVPositionToTranslatedWorld);
+    TranslatedWorldPosition.xyz /= TranslatedWorldPosition.w;
+    OutTranslatedWorldPosition = TranslatedWorldPosition.xyz;
+    OutCameraDirection = normalize(TranslatedWorldPosition.xyz - View.TranslatedWorldCameraOrigin);
+}
 
 RAY_TRACING_ENTRY_RAYGEN(RayTraceTestRGS)
 {
-    // reconstruct camera direction with a small (far) device z
     uint2 PixelCoord = DispatchRaysIndex().xy + View.ViewRectMin.xy;
     float3 WorldPosition;
     float3 CameraDirection;
-    ReconstructTranslatedWorldPositionAndCameraDirectionFromDeviceZ(PixelCoord, 0.1f, WorldPosition, CameraDirection);
- 
-    // setup ray, simply shoot a long distance
+    ReconstructWorldPosition(PixelCoord, ResTexture, 0.1f, WorldPosition, CameraDirection);
+
+    //float4 TranslatedWorldPosition = mul(float4(0.5f, 0.5f, 1, 1), View.SVPositionToTranslatedWorld);
+    //TranslatedWorldPosition.xyz /= TranslatedWorldPosition.w;
+    //WorldPosition = TranslatedWorldPosition.xyz;
+    //WorldPosition = View.TranslatedWorldCameraOrigin;
+    
     RayDesc Ray;
     Ray.Origin = WorldPosition;
-    Ray.Direction = RotateVectorY(CameraDirection, 180.0f);
+    Ray.Direction = RotateVectorY(CameraDirection, 0.0f);
     //Ray.Direction = CameraDirection;
     Ray.TMin = 0.0f;
     Ray.TMax = 10000.0f;
  
-    // consider opaque geometries and front facing triangles only
     uint RayFlags = RAY_FLAG_FORCE_OPAQUE | RAY_FLAG_CULL_BACK_FACING_TRIANGLES;
     //uint RayFlags = 0;
     //uint RayFlags = RAY_FLAG_ACCEPT_FIRST_HIT_AND_END_SEARCH;
  
-    // use material closest hit pay load
     //FIntersectionPayload Payload = (FIntersectionPayload) 0;
     FVFXTracePayload Payload = (FVFXTracePayload) 0;
     //FCusotmRayPayload Payload = (FCusotmRayPayload) 0;
@@ -82,7 +95,7 @@ RAY_TRACING_ENTRY_RAYGEN(RayTraceTestRGS)
         //outTex[PixelCoord] = float4(Payload.TranslatedWorldPosition,1);
         float rt = clamp(Payload.HitT/10000.0f, 0, 1);
         float ch = 1.0f/3.0f;
-        float r=saturate(rt*3),g=saturate((rt-ch)*3),b=saturate((rt-(ch*2))*3);
+        float g=saturate(rt*3),b=saturate((rt-ch)*3),r=saturate((rt-(ch*2))*3);
         outTex[PixelCoord] = float4(r,g,b,1);
     }
     else

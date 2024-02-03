@@ -2,11 +2,11 @@
 	"RemapUnityFiles": 
 	{
 		"Module.CustomShader.cpp.obj": [
+			"CustomShader.cpp.obj",
+			"CustomShaderRunner.cpp.obj",
 			"CustomShader.init.gen.cpp.obj",
 			"CustomShaderRunner.gen.cpp.obj",
-			"CustomRaycastHwrt.cpp.obj",
-			"CustomShader.cpp.obj",
-			"CustomShaderRunner.cpp.obj"
+			"CustomRaycastHwrt.cpp.obj"
 		]
 	}
 }
