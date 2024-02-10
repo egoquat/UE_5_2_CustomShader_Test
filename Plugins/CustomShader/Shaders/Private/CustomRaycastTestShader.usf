@@ -22,21 +22,38 @@ struct FCusotmRayPayload : FIntersectionPayload
 };
 
 float3 RotateVectorYaw(float3 dir, float angle) {
-    // Convert the angle from degrees to radians
     angle = radians(angle);
-
-    // Calculate the sine and cosine of the angle
     float sinAngle = sin(angle);
     float cosAngle = cos(angle);
-
-    // Create the rotation matrix around the Y-axis
     float3x3 rotationMatrix = float3x3(
         cosAngle, sinAngle, 0,
         -sinAngle, cosAngle, 0, 
         0, 0, 1
     );
+    return mul(rotationMatrix, dir);
+}
 
-    // Rotate the vector using the rotation matrix
+float3 RotateVectorPitch(float3 dir, float angle) {
+    angle = radians(angle);
+    float sinAngle = sin(angle);
+    float cosAngle = cos(angle);
+    float3x3 rotationMatrix = float3x3(
+        cosAngle, 0, -sinAngle,
+        0, 1, 0, 
+        sinAngle, 0, cosAngle
+    );
+    return mul(rotationMatrix, dir);
+}
+
+float3 RotateVectorRoll(float3 dir, float angle) {
+    angle = radians(angle);
+    float sinAngle = sin(angle);
+    float cosAngle = cos(angle);
+    float3x3 rotationMatrix = float3x3(
+        1, cosAngle, sinAngle,
+        0, -sinAngle, cosAngle, 
+        0, 0, 1 
+    );
     return mul(rotationMatrix, dir);
 }
 
@@ -66,8 +83,8 @@ RAY_TRACING_ENTRY_RAYGEN(RayTraceTestRGS)
     
     RayDesc Ray;
     Ray.Origin = WorldPosition;
-    //Ray.Direction = RotateVectorYaw(CameraDirection, 90.0f);
-    Ray.Direction = RotateVectorYaw(CameraDirection, 0.0f);
+    Ray.Direction = RotateVectorYaw(CameraDirection, 20.0f);
+    //Ray.Direction = RotateVectorPitch(CameraDirection, 20.0f);
     //Ray.Direction = CameraDirection;
     Ray.TMin = 0.0f;
     Ray.TMax = 10000.0f;
