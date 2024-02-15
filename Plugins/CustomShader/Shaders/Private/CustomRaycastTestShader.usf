@@ -57,6 +57,59 @@ float3 RotateVectorRoll(float3 dir, float angle) {
     return mul(rotationMatrix, dir);
 }
 
+struct Quaternion
+{
+    float x, y, z, w;
+    float3 xyz() { return float3(x,y,z);}
+};
+
+Quaternion CreateQuaternion(float3 euler)
+{
+    float cy = cos(euler.y * 0.5);
+    float sy = sin(euler.y * 0.5);
+    float cp = cos(euler.x * 0.5);
+    float sp = sin(euler.x * 0.5);
+    float cr = cos(euler.z * 0.5);
+    float sr = sin(euler.z * 0.5);
+
+    Quaternion q;
+    q.x = cy * sp * cr + sy * cp * sr;
+    q.y = sy * cp * cr - cy * sp * sr;
+    q.z = cy * cp * sr - sy * sp * cr;
+    q.w = cy * cp * cr + sy * sp * sr;
+
+    return q;
+}
+
+float3 RotateVectorByQuaternion(float3 dir, Quaternion q)
+{
+    float qw = q.w;
+    float qx = -q.x;
+    float qy = -q.y;
+    float qz = -q.z;
+    
+    float rx = dir.x * (qw * qw + qx * qx - qy * qy - qz * qz) + 2.0f * (qy * dir.y - qz * dir.z) * qw + 2.0f * (qx * dir.y + qw * dir.z) * qz;
+    float ry = 2.0f * (qz * dir.x + qw * dir.y + qx * dir.z) * qy + dir.y * (qw * qw - qx * qx + qy * qy - qz * qz) + 2.0f * (-qw * dir.x + qy * dir.z) * qx;
+    float rz = 2.0f * (-qw * dir.y + qx * dir.x) * qz + 2.0f * (qw * dir.x + qy * dir.y + qz * dir.z) * qx + dir.z * (qw * qw - qx * qx - qy * qy + qz * qz);
+    
+    return float3(rx, ry, rz);
+}
+
+float3 RotateVectorByQuaternion2(float3 dir, Quaternion q)
+{
+    float3 t = 2.0 * cross(q.xyz(), dir);
+    return dir + q.w * t + cross(q.xyz(), t);
+}
+
+float3 RotateVectorYawPitchRoll(float3 vec, float yaw, float pitch, float roll)
+{
+    yaw = radians(yaw); pitch = radians(pitch); roll = radians(roll);
+    float3 euler = float3(roll, pitch, yaw);
+    Quaternion qRot = CreateQuaternion(euler);
+    vec = RotateVectorByQuaternion(vec, qRot);
+    return vec;
+}
+
 void ReconstructWorldPosition(uint2 PixelCoord, uint2 ResTex, float DeviceZ, out float3 OutTranslatedWorldPosition, out float3 OutCameraDirection)
 {
     uint2 ResView = View.ViewSizeAndInvSize.xy;
@@ -83,9 +136,10 @@ RAY_TRACING_ENTRY_RAYGEN(RayTraceTestRGS)
     
     RayDesc Ray;
     Ray.Origin = WorldPosition;
-    Ray.Direction = RotateVectorYaw(CameraDirection, 20.0f);
+    CameraDirection = RotateVectorYawPitchRoll(CameraDirection, 40, 0, 0);
+    //Ray.Direction = RotateVectorYaw(CameraDirection, 0.0f);
     //Ray.Direction = RotateVectorPitch(CameraDirection, 20.0f);
-    //Ray.Direction = CameraDirection;
+    Ray.Direction = CameraDirection;
     Ray.TMin = 0.0f;
     Ray.TMax = 10000.0f;
  
