@@ -1,2 +1,1 @@
-Unreal Engine 5.2 Custom Global Shader Basic Test.
-Only working on Supported RayTracing GPU.
+Unreal Engine 5.3 Custom Global Shader Test. Only work supported RayTracing GPU.
